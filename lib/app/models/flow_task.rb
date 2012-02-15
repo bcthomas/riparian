@@ -1,4 +1,5 @@
 class FlowTask < ActiveRecord::Base
+  attr_accessible :type
   belongs_to :user
   
   # Input resources for the task, can be any model instance or file attachment
