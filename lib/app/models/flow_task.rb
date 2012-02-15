@@ -1,5 +1,5 @@
 class FlowTask < ActiveRecord::Base
-  attr_accessible :type, :redirect_url, :options, :inputs_attributes
+  attr_accessible :type, :redirect_url, :options, :inputs_attributes, :finished_at, :error
   belongs_to :user
   
   # Input resources for the task, can be any model instance or file attachment
