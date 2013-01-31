@@ -1,5 +1,5 @@
 class FlowTaskResource < ActiveRecord::Base
-  attr_accessible :type, :resource_type, :resource_id, :file, :extra
+  attr_accessible :type, :resource_type, :resource_id, :resource, :file, :extra
 
   belongs_to :flow_task
   belongs_to :resource, :polymorphic => true
