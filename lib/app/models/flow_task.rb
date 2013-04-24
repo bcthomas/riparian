@@ -1,5 +1,5 @@
 class FlowTask < ActiveRecord::Base
-  attr_accessible :type, :redirect_url, :options, :inputs_attributes, :finished_at, :error
+  attr_accessible :type, :redirect_url, :options, :inputs_attributes, :finished_at, :error_msg
   belongs_to :user
   
   # Input resources for the task, can be any model instance or file attachment
@@ -16,13 +16,22 @@ class FlowTask < ActiveRecord::Base
   def options
     super || {}
   end
+
+  def before(job)
+    update_attribute(:started_at, Time.now)
+  end
+
+  def success(job)
+    update_attributes(:finished_at => Time.now, :error => nil)
+  end
+
+  def error(job, exception)
+    update_attribute(:error_msg, exception)
+  end
   
   # This is the method called by DJ
   def perform
-    update_attribute(:started_at, Time.now)
-    if run
-      update_attributes(:finished_at => Time.now, :error => nil)
-    end
+    run
   end
   
   # Actual work should occur here.

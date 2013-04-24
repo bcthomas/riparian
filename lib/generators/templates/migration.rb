@@ -4,7 +4,7 @@ class CreateRiparian < ActiveRecord::Migration
       t.string :type
       t.string :options
       t.string :command
-      t.string :error
+      t.string :error_msg
       t.datetime :started_at
       t.datetime :finished_at
       t.integer :user_id
