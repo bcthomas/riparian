@@ -18,7 +18,7 @@ class FlowTask < ActiveRecord::Base
   end
 
   def before(job)
-    update_attribute(:started_at, Time.now)
+    update_attributes(:started_at => Time.now, :error_msg => nil)
   end
 
   def success(job)
