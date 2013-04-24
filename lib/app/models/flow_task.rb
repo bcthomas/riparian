@@ -22,7 +22,7 @@ class FlowTask < ActiveRecord::Base
   end
 
   def success(job)
-    update_attributes(:finished_at => Time.now, :error => nil)
+    update_attributes(:finished_at => Time.now)
   end
 
   def error(job, exception)
