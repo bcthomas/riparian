@@ -33,6 +33,18 @@ class FlowTask < ActiveRecord::Base
   def perform
     run
   end
+
+  def status
+    if error_msg.present?
+      "Error"
+    elsif finished_at.present?
+      "Finished"
+    elsif started_at.present?
+      "In progress"
+    else
+      "Queued"
+    end
+  end
   
   # Actual work should occur here.
   # This is just a stub.  Subclasses should make this method process the 
