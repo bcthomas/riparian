@@ -12,6 +12,11 @@ class FlowTask < ActiveRecord::Base
   
   validates_presence_of :inputs
   serialize :options
+
+  # to be used as unique cache key to associate DJ 
+  def to_param
+    "#{id}-#{self.class.to_s.underscore}"
+  end
   
   def options
     super || {}
