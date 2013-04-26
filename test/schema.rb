@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "error_msg"
     t.datetime "started_at"
     t.datetime "finished_at"
+    t.datetime "deleted_at"
     t.integer  "user_id"
     t.string   "redirect_url"
     t.datetime "created_at"

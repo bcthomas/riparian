@@ -1,5 +1,5 @@
 class FlowTask < ActiveRecord::Base
-  attr_accessible :type, :redirect_url, :options, :inputs_attributes, :finished_at, :started_at, :error_msg
+  attr_accessible :type, :redirect_url, :options, :inputs_attributes, :finished_at, :started_at, :deleted_at, :error_msg
   belongs_to :user
   
   # Input resources for the task, can be any model instance or file attachment
@@ -50,7 +50,10 @@ class FlowTask < ActiveRecord::Base
       "Queued"
     end
   end
-  
+
+  # Subclasses should override this method to safely abort flow_task
+  def abort; end
+
   # Actual work should occur here.
   # This is just a stub.  Subclasses should make this method process the 
   # inputs and add outputs

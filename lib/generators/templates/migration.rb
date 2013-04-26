@@ -7,6 +7,7 @@ class CreateRiparian < ActiveRecord::Migration
       t.string :error_msg
       t.datetime :started_at
       t.datetime :finished_at
+      t.datetime :deleted_at
       t.integer :user_id
       t.string :redirect_url
       t.timestamps
