@@ -52,7 +52,7 @@ class FlowTask < ActiveRecord::Base
   end
 
   # Subclasses should override this method to safely abort flow_task
-  def abort; end
+  def abort_task; end
 
   # Actual work should occur here.
   # This is just a stub.  Subclasses should make this method process the 
