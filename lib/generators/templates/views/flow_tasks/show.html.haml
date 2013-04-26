@@ -28,11 +28,11 @@
     %tr
       %th Command
       %td= @flow_task.command
-  - unless @flow_task.error.blank?
+  - unless @flow_task.error_msg.blank?
     %tr
       %th Error
       %td.error.status
-        = @flow_task.error
+        = @flow_task.error_msg
   %tr
     %th Inputs
     %td

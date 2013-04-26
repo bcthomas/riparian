@@ -1,5 +1,5 @@
 class FlowTask < ActiveRecord::Base
-  attr_accessible :type, :redirect_url, :options, :inputs_attributes, :finished_at, :error
+  attr_accessible :type, :redirect_url, :options, :inputs_attributes, :finished_at, :started_at, :error_msg
   belongs_to :user
   
   # Input resources for the task, can be any model instance or file attachment
@@ -12,16 +12,42 @@ class FlowTask < ActiveRecord::Base
   
   validates_presence_of :inputs
   serialize :options
+
+  # to be used as unique cache key to associate DJ 
+  def to_param
+    "#{id}-#{self.class.to_s.underscore}"
+  end
   
   def options
     super || {}
   end
+
+  def before(job)
+    update_attributes(:started_at => Time.now, :error_msg => nil)
+  end
+
+  def success(job)
+    update_attributes(:finished_at => Time.now)
+  end
+
+  def error(job, exception)
+    update_attribute(:error_msg, exception)
+  end
   
   # This is the method called by DJ
   def perform
-    update_attribute(:started_at, Time.now)
-    if run
-      update_attributes(:finished_at => Time.now, :error => nil)
+    run
+  end
+
+  def status
+    if error_msg.present?
+      "Error"
+    elsif finished_at.present?
+      "Finished"
+    elsif started_at.present?
+      "In progress"
+    else
+      "Queued"
     end
   end
   
