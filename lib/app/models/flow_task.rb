@@ -10,7 +10,7 @@ class FlowTask < ActiveRecord::Base
   
   accepts_nested_attributes_for :inputs, :outputs
   
-  validates_presence_of :inputs
+  # validates_presence_of :inputs
   serialize :options
 
   # to be used as unique cache key to associate DJ 
