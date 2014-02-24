@@ -13,6 +13,8 @@ class FlowTaskResource < ActiveRecord::Base
     :less_than => Riparian.config.flow_task_resource_file_size_less_than
 
 
-  validates_attachment_content_type :file, :content_type => /text\/plain/
-  validates_attachment_file_name :file, :matches => [/\A.*\Z/]
+  # validates_attachment_content_type :file, :content_type => /text\/plain/
+  # validates_attachment_file_name :file, :matches => [/\A.*\Z/]
+  
+  do_not_validate_attachment_file_type :file
 end
