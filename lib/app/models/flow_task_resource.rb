@@ -14,4 +14,5 @@ class FlowTaskResource < ActiveRecord::Base
 
 
   validates_attachment_content_type :file, :content_type => /text\/plain/
+  validates_attachment_file_name :file, :matches => [/\A.*\Z/]
 end
